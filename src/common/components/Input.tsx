@@ -1,7 +1,7 @@
 import styles from "./Input.module.css";
 interface Props {
   label: string;
-  onInputChange: (value: string) => void;
+  onInputChange: (value: number) => void;
 }
 export const Input = (props: Props) => {
   return (
@@ -10,7 +10,7 @@ export const Input = (props: Props) => {
       <input
         type="number"
         className={styles.input}
-        onChange={(e) => props.onInputChange(e.target.value)}
+        onChange={(e) => props.onInputChange(Number(e.target.value))}
       />
     </label>
   );

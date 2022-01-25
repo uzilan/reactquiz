@@ -1,3 +1,5 @@
+import { Category } from "./categoriesRequest";
+
 export type Answer = {
   isCorrectAnswer: boolean;
   answer: string;
@@ -58,12 +60,16 @@ const mapToQuestions = (responseJson: ApiQuizResponse): Question[] => {
 };
 
 export const createQuiz = async (
-  amount: string,
-  difficulty: string | undefined
+  amount: number,
+  difficulty: string | undefined,
+  category: Category | undefined
 ) => {
   let url = `https://opentdb.com/api.php?amount=${amount}`;
   if (difficulty) {
     url += `&difficulty=${difficulty.toLocaleLowerCase()}`;
+  }
+  if (category) {
+    url += `&category=${category.id}`;
   }
   const response = await fetch(url);
   const responseJson: ApiQuizResponse = await response.json();
