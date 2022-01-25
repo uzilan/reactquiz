@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { createQuiz, Question } from "./common/requests/quizRequest";
 import { Dropdown } from "./common/components/Dropdown";
 import { Input } from "./common/components/Input";
 import styles from "./QuizFormPage.module.css";
 import { Button } from "./common/components/Button";
+import { Category, fetchCategories } from "./common/requests/categoriesRequest";
 
 const difficultyOptions = ["Any difficulty", "Easy", "Medium", "Hard"];
 
@@ -11,9 +12,19 @@ export const QuizFormPage = () => {
   const [value, setValue] = useState("");
   const [difficultyLevel, setDifficultyLevel] = useState("");
   const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
   const onInputChange = (inputValue: string) => {
     setValue(inputValue);
   };
+
+  useEffect(() => {
+    const fetch = async () => {
+      const categoryResponse = await fetchCategories();
+      setCategories(categoryResponse);
+    };
+    fetch();
+  }, []);
 
   const onDropdownChange = (event: ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
