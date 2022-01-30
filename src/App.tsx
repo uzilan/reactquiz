@@ -1,5 +1,5 @@
 import "./App.css";
-import { QuizFormPage } from "./QuizFormPage";
+import { QuizFormPage } from "./features/quiz-form-page/QuizFormPage";
 
 function App() {
   return (
