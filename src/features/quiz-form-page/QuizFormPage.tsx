@@ -7,8 +7,15 @@ import {
 import { Spinner } from "../../common/components/Spinner";
 import { QuizForm } from "./QuizForm";
 
-export const QuizFormPage = () => {
-  const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
+interface Props {
+  onSubmit: (
+    amount: number,
+    difficulty: string | undefined,
+    category: Category | undefined
+  ) => void;
+}
+
+export const QuizFormPage = ({ onSubmit }: Props) => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,15 +25,6 @@ export const QuizFormPage = () => {
       setIsLoading(false);
     });
   }, []);
-
-  const onSubmit = async (
-    amount: number,
-    difficulty: string | undefined,
-    category: Category | undefined
-  ) => {
-    const quizQuestions = await createQuiz(amount, difficulty, category);
-    setQuizQuestions(quizQuestions);
-  };
 
   return (
     <div>
